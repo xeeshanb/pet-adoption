@@ -17,6 +17,9 @@ async function petsArea() {
   petsData.forEach(pet => {
     const clone = template.content.cloneNode(true)
 
+
+    clone.querySelector(".pet-card").dataset.species = pet.species
+
     clone.querySelector("h3").textContent = pet.name
     clone.querySelector(".pet-description").textContent = pet.description
     clone.querySelector(".pet-age").textContent = createAgeText(pet.birthYear)
@@ -58,4 +61,13 @@ function handleButtonClick(e) {
   e.target.classList.add("active")
 
   // actually filter the pets down below
+  const currentfilter = e.target.dataset.filter
+  document.querySelectorAll(".pet-card").forEach(el => {
+    if (currentfilter == el.dataset.species || currentfilter == "all") {
+      el.style.display = "grid"
+    }
+    else {
+      el.style.display = "none"
+    }
+  })
 }
